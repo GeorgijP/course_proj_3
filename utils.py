@@ -1,18 +1,30 @@
 import requests
-def open_list_operations():
-    """
-    Получает данные о переводах.
-    Формирует список выполненных переводов
-    """
-    executed_operations = []
 
+
+def open_last_five_operation():
+    """
+    Формирует список из 5 последних выполненных операций - last_five_operation
+    """
+
+    # Получает данные о переводах
     list_operations = requests.request("GET", "https://jsonkeeper.com/b/0MZI", verify=False).json()
 
-    for i in range(len(list_operations)):
-        if 'state' not in list_operations[i]:
+    # Создаем необходимые пустые списки
+    executed_operations = []
+    last_five_operation = []
+
+    # Формирует список выполненных переводов - executed_operations
+    for index in range(len(list_operations)):
+        if 'state' not in list_operations[index]:
             continue
-        if list_operations[i]['state'] == 'EXECUTED':
-            executed_operations.append(list_operations[i])
+        if list_operations[index]['state'] == 'EXECUTED':
+            executed_operations.append(list_operations[index])
 
-    return executed_operations
+    # Сортирует список по дате начиная с самой ближней к настоящему времени - executed_operations_sorted
+    executed_operations_sorted = sorted(executed_operations, key=lambda x: x.get('date'), reverse=True)
 
+    # Формируем список последних 5 выполненных операций
+    for index in range(5):
+        last_five_operation.append(executed_operations_sorted[index])
+
+    return last_five_operation
