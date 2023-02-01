@@ -1,14 +1,12 @@
 import requests
-import datetime
 
 
-def open_last_five_operation():
+def open_last_five_operation(path=""):
     """
     Формирует список из 5 последних выполненных операций - last_five_operation
     """
-
     # Получает данные о переводах
-    list_operations = requests.request("GET", "https://jsonkeeper.com/b/0MZI", verify=False).json()
+    list_operations = requests.request("GET", path, verify=False).json()
 
     # Создаем необходимые пустые списки
     executed_operations = []

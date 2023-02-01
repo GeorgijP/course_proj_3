@@ -1,9 +1,9 @@
 # Импорт нужных библиотек и функций
 import datetime
-from utils import open_last_five_operation
+from utils.utils import open_last_five_operation
 
 # Создание функции с данными
-operations = open_last_five_operation()
+operations = open_last_five_operation("https://jsonkeeper.com/b/0MZI")
 
 # Цикл по преведению данных к корректному виду вывода
 for i in range(5):
